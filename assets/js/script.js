@@ -15,9 +15,22 @@
 // TODO: Add code to display the current date in the header of the page.
 // });
 myPlanner = new Object();
+var today = new Date();
+var currentMonth = new String();
+var currentDay = new String();
+var currentHour = new String();
+var currentMinute = new String();
+var currentSecond = new String();
+var currentMeridian = new String();
 
 function populatePlanner(i, meridian) {
   var timeStr = i.toString().concat(meridian);
+  var time24 = 0;
+
+  if(meridian === 'pm') {
+    time24 = i + 12
+  }
+  else {time24 = i}
 
   //create section
   var secEl = $("<section>");
@@ -44,6 +57,17 @@ function populatePlanner(i, meridian) {
   btnEl.addClass("btn saveBtn col-2 col-md-1").attr("aria-label", "save");
   iconEl.addClass("fas fa-save").attr("aria-hidden", "true");
 
+if (time24 < today.getHours()) {
+    secEl.addClass("past")
+}
+else if (time24 === today.getHours()) {
+    secEl.addClass("present")
+}
+else if (time24 > today.getHours()) {
+    secEl.addClass("future")
+}
+else {console.log("no condition met")}
+
   myPlanner[timeStr] && taEl.val(myPlanner[timeStr]);
 
   //add event listener
@@ -54,14 +78,6 @@ function populatePlanner(i, meridian) {
     localStorage.setItem("myPlannerStringify", JSON.stringify(myPlanner));
   });
 }
-
-var today = null;
-var currentMonth = new String();
-var currentDay = new String();
-var currentHour = new String();
-var currentMinute = new String();
-var currentSecond = new String();
-var currentMeridian = new String();
 
 function setMonth() {
   switch (today.getDay()) {
@@ -253,7 +269,7 @@ $("#currentDay1").addClass("visible");
 $("#currentDay2").addClass("invisible");
 $("#currentDay3").addClass("invisible");
 
-alert("click the date to change the format!")
+//alert("click the date to change the format!")
 
   //planner ojbect empty
   console.log(myPlanner);
