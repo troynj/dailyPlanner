@@ -80,7 +80,7 @@ else {console.log("no condition met")}
 }
 
 function setMonth() {
-  switch (today.getDay()) {
+  switch (today.getMonth()) {
     case 0:
       currentMonth = "January";
       break;
