@@ -17,6 +17,7 @@
     // TODO: Add code to display the current date in the header of the page.
  // });
 myPlanner = new Object
+
  function populatePlanner(i, meridian) {
 
     var timeStr = i.toString().concat(meridian)
@@ -47,12 +48,7 @@ myPlanner = new Object
     btnEl.addClass('btn saveBtn col-2 col-md-1').attr('aria-label', 'save')
     iconEl.addClass('fas fa-save').attr('aria-hidden', 'true')
 
-    //var tempVal = Object.keys(myPlanner).includes(timeStr) ? 'hi' : "low"
-    //var tempVal = myPlanner[timeStr] ?? '';
-    //load planner
-    //if (myPlanner[timeStr] != null) {taEl.val(tempVal)}
-    //console.log(myPlanner[timeStr])
-    //myPlanner[timeStr] && taEl.val(tempVal)
+    myPlanner[timeStr] && taEl.val(myPlanner[timeStr])
 
     //add event listener
     btnEl.click(function () {
@@ -71,7 +67,7 @@ myPlanner = new Object
     //planner ojbect empty
     console.log(myPlanner)
     //get item from LS, save to object
-     myPlanner = JSON.parse(localStorage.getItem("myPlannerStringify"))
+     myPlanner = JSON.parse(localStorage.getItem("myPlannerStringify")) ?? {}
      //planner object has data
      console.log(myPlanner)
      
