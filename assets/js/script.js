@@ -47,8 +47,12 @@ myPlanner = new Object
     btnEl.addClass('btn saveBtn col-2 col-md-1').attr('aria-label', 'save')
     iconEl.addClass('fas fa-save').attr('aria-hidden', 'true')
 
+    //var tempVal = Object.keys(myPlanner).includes(timeStr) ? 'hi' : "low"
+    //var tempVal = myPlanner[timeStr] ?? '';
     //load planner
-    myPlanner[timeStr] && taEl.val(myPlanner[timeStr])
+    //if (myPlanner[timeStr] != null) {taEl.val(tempVal)}
+    //console.log(myPlanner[timeStr])
+    //myPlanner[timeStr] && taEl.val(tempVal)
 
     //add event listener
     btnEl.click(function () {
