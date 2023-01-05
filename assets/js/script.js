@@ -157,7 +157,7 @@ function setHour() {
     currentHour = today.getHours();
     currentMeridian = "AM";
   } else if (today.getHours() === 12) {
-    currentHour = "12:";
+    currentHour = "12";
     currentMeridian = "PM";
   } else if (today.getHours() < 24) {
     currentHour = today.getHours() - 12;
@@ -224,6 +224,8 @@ function setToday() {
   setSecond();
 }
 
+var myTempBool = true
+
 function displayDate() {
   var curd1 = $("#currentDay1");
   var curd2 = $("#currentDay2");
@@ -233,9 +235,20 @@ function displayDate() {
   curd2.text(getDateWords() + "  " + getTime());
   curd3.text(getDateNumbers() + "  " + getTime());
 
+  var tempNoteEl;
+  if(myTempBool) {
+    tempNoteEl = $('<p>').attr("id", "temp-note").text("click time to change format")
+  }
+
+  curd1.append(tempNoteEl)
   curd1.click(function () {
     curd1.removeClass("visible");
     curd1.addClass("invisible");
+
+    $('#currentDay1 p').remove()
+    myTempBool = false;
+
+
 
     curd2.removeClass("invisible");
     curd2.addClass("visible");
