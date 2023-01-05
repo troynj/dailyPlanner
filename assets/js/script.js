@@ -55,7 +55,7 @@ function populatePlanner(i, meridian) {
   });
 }
 
-var today = new Date();
+var today = null;
 var currentMonth = new String();
 var currentDay = new String();
 var currentHour = new String();
@@ -149,12 +149,11 @@ function setHour() {
   } else {
     console.log("No Conditions Met");
   }
-
 }
 
 function setMinute() {
   if (today.getMinutes() < 10) {
-    currentMinute = today.getMinutes();
+    currentMinute = "0".concat(today.getMinutes());
   } else {
     currentMinute = today.getMinutes();
   }
@@ -162,7 +161,7 @@ function setMinute() {
 
 function setSecond() {
   if (today.getSeconds() < 10) {
-    currentSecond = today.getSeconds().toString();
+    currentSecond = "0".concat(today.getSeconds().toString());
   } else {
     currentSecond = today.getSeconds().toString();
   }
@@ -210,17 +209,52 @@ function setToday() {
 }
 
 function displayDate() {
-    setToday()
-        $("#currentDay1").text(getDateWords());
-        $("#currentDay2").text(getDateWords() + "  " + getTime());
-        $("#currentDay3").text(getDateNumbers() + "  " + getTime());
+  var curd1 = $("#currentDay1");
+  var curd2 = $("#currentDay2");
+  var curd3 = $("#currentDay3");
+
+  curd1.text(getDateWords());
+  curd2.text(getDateWords() + "  " + getTime());
+  curd3.text(getDateNumbers() + "  " + getTime());
+
+  curd1.click(function () {
+    curd1.removeClass("visible");
+    curd1.addClass("invisible");
+
+    curd2.removeClass("invisible");
+    curd2.addClass("visible");
+  });
+
+  curd2.click(function () {
+    curd2.removeClass("visible");
+    curd2.addClass("invisible");
+
+    curd3.removeClass("invisible");
+    curd3.addClass("visible");
+  });
+
+  curd3.click(function () {
+    curd3.removeClass("visible");
+    curd3.addClass("invisible");
+
+    curd1.removeClass("invisible");
+    curd1.addClass("visible");
+  });
 }
+
 function init() {
-    
-    setInterval(function() {
-setToday();
-        displayDate();
-    }, 1000)
+  setInterval(function () {
+    today = new Date();
+    setToday();
+    displayDate();
+  }, 1000);
+
+$("#currentDay1").addClass("visible");
+$("#currentDay2").addClass("invisible");
+$("#currentDay3").addClass("invisible");
+
+alert("click the date to change the format!")
+
   //planner ojbect empty
   console.log(myPlanner);
   //get item from LS, save to object
@@ -240,4 +274,3 @@ setToday();
 }
 
 init();
-
