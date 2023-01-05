@@ -1,5 +1,5 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that the code isn't run until the browser has finished rendering all the elements in the html.
-//$(function () {
+$(function () {
 // TODO: Add a listener for click events on the save button. This code should use the id in the containing time-block as a key to save the user input in local storage.
 //HINT: What does `this` reference in the click listener function?
 //How can DOM traversal be used to get the "hour-x" id of the time-block containing the button that was clicked?
@@ -13,11 +13,12 @@
 //HINT: How can the id attribute of each time-block be used to do this?
 
 // TODO: Add code to display the current date in the header of the page.
-// });
+
 myPlanner = new Object();
 var today = new Date();
 var currentMonth = new String();
 var currentDay = new String();
+var currentDayNumber = new String();
 var currentHour = new String();
 var currentMinute = new String();
 var currentSecond = new String();
@@ -146,6 +147,46 @@ function setDay() {
   }
 }
 
+function setDayNumber() {
+var dayStr = today.getDate().toString()
+var lastDigit = dayStr[dayStr.length -1]
+switch (lastDigit){
+    // case 0:
+    //     currentDayNumber = dayStr.concat("th");
+    //     break;
+      case 1:
+        currentDayNumber = dayStr.concat("st");
+        break;
+      case 2:
+        currentDayNumber = dayStr.concat("nd");
+        break;
+      case 3:
+        currentDayNumber = dayStr.concat("rd");
+        break;
+    //   case 4:
+    //     currentDayNumber = dayStr.concat("th");
+    //     break;
+    //   case 5:
+    //     currentDayNumber = dayStr.concat("th");
+    //     break;
+    //   case 6:
+    //     currentDayNumber = dayStr.concat("th");
+    //     break;
+    //   case 7:
+    //     currentDayNumber = dayStr.concat("th");
+    //     break;
+    //   case 8:
+    //     currentDayNumber = dayStr.concat("th");
+    //     break;
+    //   case 9:
+    //     currentDayNumber = dayStr.concat("th");
+    //     break;
+    default: currentDayNumber = dayStr.concat("th");
+    break;
+
+}
+}
+
 function setHour() {
   if (today.getHours() === 0) {
     currentHour = "12";
@@ -189,8 +230,8 @@ function getDateWords() {
     ", " +
     currentMonth +
     " " +
-    today.getDate() +
-    ", " +
+    currentDayNumber +
+    " " +
     today.getFullYear()
   );
 }
@@ -219,6 +260,7 @@ function getTime() {
 function setToday() {
   setMonth();
   setDay();
+  setDayNumber();
   setHour();
   setMinute();
   setSecond();
@@ -232,8 +274,8 @@ function displayDate() {
   var curd3 = $("#currentDay3");
 
   curd1.text(getDateWords());
-  curd2.text(getDateWords() + "  " + getTime());
-  curd3.text(getDateNumbers() + "  " + getTime());
+  curd2.text(getDateWords()).append($('<p>').text(getTime()));
+  curd3.text(getDateNumbers()).append($('<p>').text(getTime()));
 
   var tempNoteEl;
   if(myTempBool) {
@@ -303,3 +345,4 @@ $("#currentDay3").addClass("invisible");
 }
 
 init();
+});
